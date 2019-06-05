@@ -1,0 +1,71 @@
+// variable that modifies the size of text
+var r = 1.9;
+
+/* variables that modify the x and y coordinates of the displayed arrays */
+var xPos = 0;
+var yPos = 0;
+
+var displayArray = function(array, i) {
+    fill(0, 0, 0);
+    textFont(createFont("monospace"), 27/r);
+    // for loop for displaying the current state of the array
+    for(var j = 0; j < array.length; j++){
+        text(array[j].toString(),xPos + j*50/r + 15/r, yPos + i * 50/r + 35/r );
+    }
+    
+};
+
+var swap = function(array, firstIndex, secondIndex){
+    var temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+};
+
+var indexOfMinimum = function(array, index){
+    var minIndex = index;
+    var minValue = array[index];
+    for(var i = index + 1; i < array.length; i++){
+        if(array[i] < array[minIndex]){
+            minIndex = i;
+            minValue = array[i];
+        }
+    }  
+    return minIndex;
+};
+
+var selectionSort = function(array) {
+    var min;
+    for(var i = 0; i < array.length; i++){
+        displayArray(array, i);
+        min = indexOfMinimum(array, i);
+        
+        // line that shows each swap
+        if(i < array.length - 1){
+            line(xPos+min * 50/r + 25/r, yPos + i * 50/r + 39/r,xPos+ i * 50/r + 20/r, yPos + i * 50/r + 65/r);
+        }
+        swap(array, i, min);
+    }
+};
+
+
+// The arrays
+
+xPos = 0;
+yPos = 0;
+var array = [33, 88, 4, 22, 44, 7, 2];
+selectionSort(array);
+
+xPos = 200;
+yPos = 0;
+var array = [9, 8, 7, 6, 5, 4, 3];
+selectionSort(array);
+
+xPos = 0;
+yPos = 200;
+var array = [1, 2, 3, 10, 4, 5, 6];
+selectionSort(array);
+
+xPos = 200;
+yPos = 200;
+var array = [10, 50, 60, 20, 11, 4, 2];
+selectionSort(array);
